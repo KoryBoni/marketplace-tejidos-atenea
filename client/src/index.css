@@ -1,0 +1,7 @@
+/* client/src/index.css */
+/* Main styles are in styles/globals.css — imported via main.jsx */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
