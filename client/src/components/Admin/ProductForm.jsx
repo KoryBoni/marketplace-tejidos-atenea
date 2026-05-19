@@ -64,7 +64,8 @@ export default function ProductForm({ isOpen, onClose, onSaved, product }) {
 
       onSaved()
     } catch (e) {
-      setError(e.response?.data?.error || 'Error al guardar')
+      const errors = e.response?.data?.errors
+      setError(errors ? Object.values(errors).join('. ') : e.response?.data?.error || 'Error al guardar')
     } finally { setLoading(false) }
   }
 

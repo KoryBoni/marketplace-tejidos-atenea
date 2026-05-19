@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS products (
   stock       INT DEFAULT 0,
   category_id INT,
   imagen_path VARCHAR(500),
+  activo      BOOLEAN DEFAULT TRUE,
   created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
@@ -52,6 +53,9 @@ CREATE TABLE IF NOT EXISTS products (
 CREATE TABLE IF NOT EXISTS orders (
   id          INT PRIMARY KEY AUTO_INCREMENT,
   user_id     INT NOT NULL,
+  cliente_nombre VARCHAR(255) NOT NULL,
+  cliente_telefono VARCHAR(30) NOT NULL,
+  cliente_direccion VARCHAR(255) NOT NULL,
   estado      ENUM('pendiente','confirmado','enviado','entregado','cancelado') DEFAULT 'pendiente',
   total       DECIMAL(10, 2) NOT NULL,
   metodo_pago ENUM('tarjeta','transferencia','efectivo') NOT NULL,
@@ -81,16 +85,21 @@ CREATE TABLE IF NOT EXISTS order_items (
 -- ============================================================
 
 INSERT INTO users (email, password, nombre, apellido, role) VALUES
-('admin@tejidos.com',   '$2a$10$YJvlHqvHkLdBFXQQhBBxv.O7v4PBwf8zM3gWiJaJvK5sZ3Oi6k3jK', 'Admin', 'Atenea', 'admin'),
-('cliente@ejemplo.com', '$2a$10$YJvlHqvHkLdBFXQQhBBxv.O7v4PBwf8zM3gWiJaJvK5sZ3Oi6k3jK', 'Juan',  'Pérez',  'customer');
+('admin@tejidos.com',   '$2b$10$jetVYlosrcQrNlPOguvMLuxKMD9U4NSC0TNjrZkBVm4CsbcE5Qhd2', 'Admin', 'Atenea', 'admin'),
+('cliente@ejemplo.com', '$2b$10$jetVYlosrcQrNlPOguvMLuxKMD9U4NSC0TNjrZkBVm4CsbcE5Qhd2', 'Juan',  'Pérez',  'customer');
 
 INSERT INTO categories (nombre, descripcion) VALUES
-('Lana',     'Hilos y ovillos de lana natural'),
-('Algodón',  'Hilos de algodón orgánico e industrial'),
-('Seda',     'Hilos de seda pura y mezclas'),
-('Acrílico', 'Hilos sintéticos resistentes y fáciles de cuidar'),
-('Agujas',   'Agujas de tejer, crochet y accesorios'),
-('Patrones', 'Patrones impresos y digitales');
+('Amigurumis pequeños', 'Muñecos tejidos pequeños en crochet.'),
+('Amigurumis medianos', 'Muñecos tejidos medianos en crochet.'),
+('Amigurumis grandes', 'Muñecos tejidos grandes en crochet.'),
+('Flores', 'Flores tejidas en crochet para regalos y decoración.'),
+('Mascotas en crochet', 'Figuras personalizadas de mascotas tejidas en crochet.'),
+('Llaveros', 'Llaveros tejidos y mini amigurumis.'),
+('Accesorios', 'Accesorios tejidos para uso personal.'),
+('Juguetes para bebés', 'Juguetes tejidos suaves para bebés.'),
+('Amigurumis para bolso', 'Amigurumis decorativos para bolsos y mochilas.'),
+('Amigurumis películas', 'Personajes inspirados en películas tejidos en crochet.'),
+('Accesorios para el hogar', 'Productos tejidos decorativos y funcionales para el hogar.');
 
 -- Los productos de ejemplo no tienen imagen (se subirán desde el panel admin)
 INSERT INTO products (nombre, descripcion, precio, stock, category_id) VALUES

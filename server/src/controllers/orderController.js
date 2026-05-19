@@ -10,8 +10,9 @@ const ESTADOS_VALIDOS = ['pendiente', 'confirmado', 'enviado', 'entregado', 'can
 const fetchOrderById = async (connection, orderId) => {
   const [[order]] = await connection.query(
     `SELECT 
-       o.id, o.user_id, o.estado, o.total, o.metodo_pago, o.created_at, o.updated_at,
-       u.nombre AS cliente_nombre, u.apellido AS cliente_apellido, u.email AS cliente_email
+       o.id, o.user_id, o.cliente_nombre, o.cliente_telefono, o.cliente_direccion,
+       o.estado, o.total, o.metodo_pago, o.created_at, o.updated_at,
+       u.nombre AS usuario_nombre, u.apellido AS usuario_apellido, u.email AS cliente_email
      FROM orders o
      JOIN users u ON u.id = o.user_id
      WHERE o.id = ?`,
@@ -35,10 +36,26 @@ const fetchOrderById = async (connection, orderId) => {
 
 // ─── POST /api/orders ────────────────────────────────────────────────────────
 // Crea un pedido a partir del carrito enviado desde el cliente.
-// Body: { metodo_pago, items: [{ product_id, cantidad }] }
+// Body: { cliente_nombre, cliente_telefono, cliente_direccion, metodo_pago, items: [{ product_id, cantidad }] }
 const create = async (req, res) => {
-  const { metodo_pago, items } = req.body;
+  const { cliente_nombre, cliente_telefono, cliente_direccion, metodo_pago, items } = req.body;
   const userId = req.user.id;
+
+  const nombre = cliente_nombre?.trim();
+  const telefono = cliente_telefono?.trim();
+  const direccion = cliente_direccion?.trim();
+
+  if (!nombre || nombre.length < 2) {
+    return res.status(400).json({ error: 'El nombre del cliente es obligatorio' });
+  }
+
+  if (!telefono || telefono.length < 7) {
+    return res.status(400).json({ error: 'El telefono debe tener minimo 7 caracteres' });
+  }
+
+  if (!direccion || direccion.length < 8) {
+    return res.status(400).json({ error: 'La direccion de entrega es obligatoria' });
+  }
 
   // Validar método de pago
   if (!metodo_pago || !METODOS_PAGO.includes(metodo_pago)) {
@@ -102,8 +119,10 @@ const create = async (req, res) => {
 
     // Crear el pedido
     const [orderResult] = await connection.query(
-      'INSERT INTO orders (user_id, estado, total, metodo_pago) VALUES (?, ?, ?, ?)',
-      [userId, 'pendiente', total, metodo_pago]
+      `INSERT INTO orders
+       (user_id, cliente_nombre, cliente_telefono, cliente_direccion, estado, total, metodo_pago)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [userId, nombre, telefono, direccion, 'pendiente', total, metodo_pago]
     );
     const orderId = orderResult.insertId;
 
@@ -160,7 +179,8 @@ const getAll = async (req, res) => {
     const [orders] = await pool.query(
       `SELECT
          o.id, o.estado, o.total, o.metodo_pago, o.created_at,
-         u.nombre AS cliente_nombre, u.apellido AS cliente_apellido, u.email AS cliente_email,
+         o.cliente_nombre, o.cliente_telefono, o.cliente_direccion,
+         u.nombre AS usuario_nombre, u.apellido AS usuario_apellido, u.email AS cliente_email,
          COUNT(oi.id) AS total_items
        FROM orders o
        JOIN users u ON u.id = o.user_id

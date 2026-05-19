@@ -70,7 +70,14 @@ export default function CategoryManager() {
         </div>
       )}
 
-      {loading ? <LoadingSpinner fullPage /> : (
+      {loading ? <LoadingSpinner fullPage /> : cats.length === 0 ? (
+        <div className="empty-state">
+          <p>No hay categorías registradas.</p>
+          <button className="btn btn-primary btn-sm" onClick={() => setCreating(true)}>
+            Crear categoría
+          </button>
+        </div>
+      ) : (
         <div className="admin-table-wrap">
           <table className="admin-table">
             <thead><tr><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr></thead>

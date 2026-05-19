@@ -28,7 +28,7 @@ export default function ProductGallery() {
     try {
       const data = await productService.getAll({ ...filters, page, limit: LIMIT })
       setProducts(data.products || data)
-      setTotal(data.total || (data.products || data).length)
+      setTotal(data.pagination?.total || (data.products || data).length)
     } catch { setProducts([]) }
     finally { setLoading(false) }
   }, [filters, page])

@@ -1,6 +1,6 @@
 // client/src/components/Admin/AdminDashboard.jsx
 import { useState, useEffect } from 'react'
-import { Package, ShoppingBag, Clock, CheckCircle, TrendingUp } from 'lucide-react'
+import { AlertTriangle, Package, ShoppingBag, Clock, CheckCircle, TrendingUp } from 'lucide-react'
 import { productService } from '../../services/productService'
 import orderService from '../../services/orderService'
 import LoadingSpinner from '../Common/LoadingSpinner'
@@ -24,12 +24,16 @@ export default function AdminDashboard() {
         const totalVentas = orders
           .filter(o => o.estado !== 'cancelado')
           .reduce((s, o) => s + Number(o.total), 0)
+        const pedidosActivos = orders.filter(o => o.estado !== 'cancelado').length
 
         setStats({
           productos:  products.length,
           pedidos:    orders.length,
           pendientes: orders.filter(o => o.estado === 'pendiente').length,
           entregados: orders.filter(o => o.estado === 'entregado').length,
+          bajoStock:  products.filter(p => Number(p.stock) > 0 && Number(p.stock) <= 5).length,
+          agotados:   products.filter(p => Number(p.stock) === 0).length,
+          activos:    pedidosActivos,
           ventas:     totalVentas,
         })
         setRecentOrders(orders.slice(0, 5))
@@ -46,6 +50,7 @@ export default function AdminDashboard() {
     { label: 'Pedidos',   value: stats.pedidos,   icon: Package,     color: 'var(--sage)' },
     { label: 'Pendientes',value: stats.pendientes, icon: Clock,       color: 'var(--amber)' },
     { label: 'Entregados',value: stats.entregados, icon: CheckCircle, color: 'var(--success)' },
+    { label: 'Bajo stock',value: stats.bajoStock, icon: AlertTriangle, color: 'var(--danger)' },
   ]
 
   return (
@@ -77,6 +82,25 @@ export default function AdminDashboard() {
         </div>
       </div>
 
+      <div className="dash-summary-grid">
+        <div className="dash-summary-box">
+          <span className="summary-label">Productos agotados</span>
+          <strong>{stats.agotados}</strong>
+        </div>
+        <div className="dash-summary-box">
+          <span className="summary-label">Pedidos activos</span>
+          <strong>{stats.activos}</strong>
+        </div>
+        <div className="dash-summary-box">
+          <span className="summary-label">Ticket promedio</span>
+          <strong>
+            ${stats.pedidos
+              ? Math.round(stats.ventas / Math.max(stats.activos, 1)).toLocaleString('es-CO')
+              : '0'}
+          </strong>
+        </div>
+      </div>
+
       <div className="dash-recent">
         <h3>Últimos pedidos</h3>
         {recentOrders.length === 0 ? (
@@ -85,15 +109,16 @@ export default function AdminDashboard() {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>#</th><th>Total</th><th>Estado</th><th>Fecha</th>
+                <th>#</th><th>Cliente</th><th>Total</th><th>Estado</th><th>Fecha</th>
               </tr>
             </thead>
             <tbody>
               {recentOrders.map(o => (
                 <tr key={o.id}>
                   <td>#{o.id}</td>
+                  <td>{o.cliente_nombre}</td>
                   <td>${Number(o.total).toLocaleString('es-CO')}</td>
-                  <td><span className="badge badge-primary">{o.estado}</span></td>
+                  <td><span className={`badge ${o.estado === 'entregado' ? 'badge-success' : o.estado === 'cancelado' ? 'badge-danger' : 'badge-primary'}`}>{o.estado}</span></td>
                   <td style={{ fontSize: '.8rem', color: 'var(--ink-soft)' }}>
                     {new Date(o.created_at).toLocaleDateString('es-CO')}
                   </td>

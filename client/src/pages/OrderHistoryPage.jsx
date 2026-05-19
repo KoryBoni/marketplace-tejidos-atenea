@@ -7,7 +7,7 @@ import './OrderHistoryPage.css'
 
 const STATUS_LABELS = {
   pendiente: { label: 'Pendiente', badge: 'badge-amber' },
-  procesando: { label: 'Procesando', badge: 'badge-primary' },
+  confirmado: { label: 'Confirmado', badge: 'badge-primary' },
   enviado: { label: 'Enviado', badge: 'badge-sage' },
   entregado: { label: 'Entregado', badge: 'badge-success' },
   cancelado: { label: 'Cancelado', badge: 'badge-danger' },
@@ -40,10 +40,13 @@ function OrderCard({ order, onCancel }) {
       {open && (
         <div className="order-detail anim-slide-up">
           <div className="order-info-row">
-            <span><strong>Cliente:</strong> {order.cliente_nombre} {order.cliente_apellido} - {order.cliente_email}</span>
+            <span><strong>Cliente:</strong> {order.cliente_nombre} - {order.cliente_email}</span>
           </div>
           <div className="order-info-row">
             <span><strong>Pago:</strong> {order.metodo_pago}</span>
+          </div>
+          <div className="order-info-row">
+            <span><strong>Entrega:</strong> {order.cliente_direccion} - {order.cliente_telefono}</span>
           </div>
           <table className="order-items-table">
             <thead>

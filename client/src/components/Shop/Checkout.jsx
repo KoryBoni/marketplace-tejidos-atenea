@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { CreditCard, Banknote, CheckCircle } from 'lucide-react'
 import { useCart } from '../../context/CartContext'
+import { useAuth } from '../../context/AuthContext'
 import orderService from '../../services/orderService'
 import Modal from '../Common/Modal'
 import './Checkout.css'
@@ -14,19 +15,56 @@ const METODOS = [
 
 export default function Checkout({ isOpen, onClose, onSuccess }) {
   const { items, total, clear } = useCart()
+  const { user } = useAuth()
   const [metodo, setMetodo]   = useState('tarjeta')
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
   const [done, setDone]       = useState(false)
+  const [cliente, setCliente] = useState({
+    nombre: `${user?.nombre || ''} ${user?.apellido || ''}`.trim(),
+    telefono: '',
+    direccion: '',
+  })
+
+  const handleClienteChange = (e) => {
+    const { name, value } = e.target
+    setCliente(prev => ({ ...prev, [name]: value }))
+    if (error) setError('')
+  }
+
+  const validateCliente = () => {
+    if (!cliente.nombre.trim() || cliente.nombre.trim().length < 2) {
+      return 'Escribe el nombre de quien recibe el pedido.'
+    }
+    if (!cliente.telefono.trim() || cliente.telefono.trim().length < 7) {
+      return 'Escribe un telefono valido para confirmar el pedido.'
+    }
+    if (!cliente.direccion.trim() || cliente.direccion.trim().length < 8) {
+      return 'Escribe la direccion completa de entrega.'
+    }
+    return ''
+  }
 
   const handleOrder = async () => {
+    const validationError = validateCliente()
+    if (validationError) {
+      setError(validationError)
+      return
+    }
+
     setLoading(true); setError('')
     try {
-      await orderService.create(metodo, items.map(i => ({
-        product_id: i.product_id,
-        cantidad:   i.cantidad,
-        precio_unitario: i.precio,
-      })))
+      await orderService.create({
+        cliente_nombre: cliente.nombre.trim(),
+        cliente_telefono: cliente.telefono.trim(),
+        cliente_direccion: cliente.direccion.trim(),
+        metodo_pago: metodo,
+        items: items.map(i => ({
+          product_id: i.product_id,
+          cantidad:   i.cantidad,
+          precio_unitario: i.precio,
+        })),
+      })
       clear()
       setDone(true)
     } catch (e) {
@@ -38,6 +76,11 @@ export default function Checkout({ isOpen, onClose, onSuccess }) {
 
   const handleClose = () => {
     setDone(false); setError(''); setMetodo('tarjeta')
+    setCliente({
+      nombre: `${user?.nombre || ''} ${user?.apellido || ''}`.trim(),
+      telefono: '',
+      direccion: '',
+    })
     if (done) onSuccess(); else onClose()
   }
 
@@ -64,6 +107,42 @@ export default function Checkout({ isOpen, onClose, onSuccess }) {
             <div className="checkout-total">
               <strong>Total</strong>
               <strong>${total.toLocaleString('es-CO')}</strong>
+            </div>
+          </div>
+
+          <h4 className="checkout-section-title">Datos de entrega</h4>
+          <div className="checkout-customer">
+            <div className="form-group">
+              <label>Nombre de quien recibe *</label>
+              <input
+                name="nombre"
+                value={cliente.nombre}
+                onChange={handleClienteChange}
+                placeholder="Nombre completo"
+                disabled={loading}
+              />
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Telefono *</label>
+                <input
+                  name="telefono"
+                  value={cliente.telefono}
+                  onChange={handleClienteChange}
+                  placeholder="Ej: 3219068824"
+                  disabled={loading}
+                />
+              </div>
+              <div className="form-group">
+                <label>Direccion *</label>
+                <input
+                  name="direccion"
+                  value={cliente.direccion}
+                  onChange={handleClienteChange}
+                  placeholder="Barrio, calle, numero"
+                  disabled={loading}
+                />
+              </div>
             </div>
           </div>
 
