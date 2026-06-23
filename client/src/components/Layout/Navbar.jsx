@@ -1,9 +1,10 @@
 // client/src/components/Layout/Navbar.jsx
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { ShoppingBag, User, LogOut, Menu, X, Package, Shield } from 'lucide-react'
+import { Heart, ShoppingBag, User, LogOut, Menu, X, Package, Shield } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
 import { useCart } from '../../context/CartContext'
+import { useFavorites } from '../../context/FavoritesContext'
 import Cart from '../Shop/Cart'
 import logo from '../../assets/favicon_nobg.png'
 import './Navbar.css'
@@ -11,6 +12,7 @@ import './Navbar.css'
 export default function Navbar() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth()
   const { totalItems } = useCart()
+  const { totalFavorites } = useFavorites()
   const navigate = useNavigate()
   const [cartOpen, setCartOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -36,6 +38,7 @@ export default function Navbar() {
           <div className="navbar-links">
             <NavLink to="/"     className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'} end>Inicio</NavLink>
             <NavLink to="/shop" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Tienda</NavLink>
+            <NavLink to="/favorites" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>Favoritos</NavLink>
             {isAuthenticated && (
               <NavLink to="/orders" className={({isActive}) => isActive ? 'nav-link active' : 'nav-link'}>
                 Mis Pedidos
@@ -50,6 +53,11 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className="navbar-actions">
+            <Link className="btn-icon favorite-btn" to="/favorites" aria-label="Favoritos">
+              <Heart size={20} />
+              {totalFavorites > 0 && <span className="cart-badge">{totalFavorites}</span>}
+            </Link>
+
             <button className="btn-icon cart-btn" onClick={() => setCartOpen(true)} aria-label="Carrito">
               <ShoppingBag size={20} />
               {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
@@ -93,6 +101,7 @@ export default function Navbar() {
           <div className="mobile-menu">
             <NavLink to="/"     onClick={() => setMenuOpen(false)}>Inicio</NavLink>
             <NavLink to="/shop" onClick={() => setMenuOpen(false)}>Tienda</NavLink>
+            <NavLink to="/favorites" onClick={() => setMenuOpen(false)}>Favoritos</NavLink>
             {isAuthenticated && (
               <NavLink to="/orders" onClick={() => setMenuOpen(false)}>Mis Pedidos</NavLink>
             )}

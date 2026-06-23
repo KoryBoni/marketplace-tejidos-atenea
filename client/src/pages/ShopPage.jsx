@@ -7,8 +7,14 @@ export default function ShopPage() {
     <div className="shop-page">
       <div className="shop-header">
         <div className="container">
-          <h1>Nuestra Tienda</h1>
-          <p>Tejidos artesanales hechos con fibras naturales y mucho amor 🧶</p>
+          <span className="shop-kicker">Catálogo artesanal</span>
+          <h1>Tienda Tejidos Atenea</h1>
+          <p>Explora productos tejidos a mano, filtra por categoría y encuentra el detalle ideal para tu pedido.</p>
+          <div className="shop-flow">
+            <span>1. Elige</span>
+            <span>2. Agrega al carrito</span>
+            <span>3. Confirma pedido</span>
+          </div>
         </div>
       </div>
       <div className="container shop-body">

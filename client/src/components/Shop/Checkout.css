@@ -1,4 +1,16 @@
 /* client/src/components/Shop/Checkout.css */
+.checkout-progress {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  margin-bottom: 16px;
+}
+.checkout-progress span {
+  background: var(--cream); color: var(--ink-soft);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 8px 10px; text-align: center; font-size: .75rem; font-weight: 700;
+}
+.checkout-progress span.active {
+  background: var(--primary-lt); border-color: var(--primary-mid); color: var(--primary);
+}
 .checkout-summary {
   background: var(--cream); border-radius: var(--r-md);
   padding: 16px; margin-bottom: 20px;
@@ -23,6 +35,9 @@
 .checkout-section-title {
   font-size: .78rem; text-transform: uppercase; letter-spacing: .07em;
   color: var(--ink-soft); font-weight: 700; margin-bottom: 10px;
+}
+.checkout-helper {
+  color: var(--ink-soft); font-size: .84rem; margin: -4px 0 12px;
 }
 
 .checkout-customer {

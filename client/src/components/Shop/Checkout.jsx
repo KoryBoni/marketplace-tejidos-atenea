@@ -95,6 +95,11 @@ export default function Checkout({ isOpen, onClose, onSuccess }) {
         </div>
       ) : (
         <>
+          <div className="checkout-progress" aria-label="Progreso del pedido">
+            <span className="active">1. Resumen</span>
+            <span className="active">2. Entrega</span>
+            <span>3. Pago</span>
+          </div>
           {/* Resumen */}
           <div className="checkout-summary">
             <h4>Resumen del pedido</h4>
@@ -111,6 +116,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }) {
           </div>
 
           <h4 className="checkout-section-title">Datos de entrega</h4>
+          <p className="checkout-helper">Estos datos permiten registrar el pedido y verlo después en el panel administrativo.</p>
           <div className="checkout-customer">
             <div className="form-group">
               <label>Nombre de quien recibe *</label>

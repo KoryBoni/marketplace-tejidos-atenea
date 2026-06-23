@@ -22,6 +22,7 @@
 }
 .cart-title { display: flex; align-items: center; gap: 10px; }
 .cart-title h2 { font-size: 1.1rem; margin: 0; font-family: var(--font-body); font-weight: 600; }
+.cart-title p { margin: 2px 0 0; color: var(--ink-soft); font-size: .78rem; }
 .cart-count { color: var(--ink-soft); font-weight: 400; }
 
 .cart-body { flex: 1; overflow-y: auto; padding: 8px 0; }
@@ -70,6 +71,15 @@
   padding: 20px 24px;
   border-top: 1px solid var(--border);
   background: var(--surface);
+}
+.cart-checklist {
+  display: grid; gap: 8px; margin-bottom: 14px;
+}
+.cart-checklist span {
+  display: flex; align-items: center; gap: 7px;
+  color: var(--sage); background: var(--sage-lt);
+  border-radius: var(--r-sm); padding: 8px 10px;
+  font-size: .8rem; font-weight: 700;
 }
 .cart-total {
   display: flex; justify-content: space-between; align-items: center;

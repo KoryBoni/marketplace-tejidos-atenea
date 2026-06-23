@@ -1,10 +1,36 @@
 /* client/src/components/Shop/ProductGallery.css */
 .gallery-wrap {}
 
+.catalog-summary {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-bottom: 18px;
+}
+.catalog-summary div {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.catalog-summary span {
+  color: var(--ink-soft); font-size: .78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.catalog-summary strong {
+  color: var(--primary); font-family: var(--font-display);
+  font-size: 1.35rem; line-height: 1;
+}
+
 .gallery-toolbar {
   display: flex; align-items: center; flex-wrap: wrap; gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 20px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 16px; box-shadow: var(--shadow-sm);
 }
+.toolbar-title {
+  display: flex; align-items: center; gap: 10px;
+  min-width: 240px; color: var(--primary);
+}
+.toolbar-title strong { display: block; color: var(--ink); font-size: .95rem; line-height: 1.2; }
+.toolbar-title span { display: block; color: var(--ink-soft); font-size: .76rem; }
 .search-wrap {
   position: relative; display: flex; align-items: center;
   background: var(--surface); border: 1.5px solid var(--border);
@@ -46,8 +72,23 @@
   border-radius: var(--r-md); padding: 20px; margin-bottom: 20px;
   box-shadow: var(--shadow-sm);
 }
-.filter-row { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
-.filter-row .form-group { margin-bottom: 0; min-width: 160px; }
+.price-range-panel {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+}
+.price-range-panel > span {
+  color: var(--ink-soft); font-size: .78rem; text-transform: uppercase;
+  letter-spacing: .06em; font-weight: 700;
+}
+.price-range-options { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; }
+.price-range-options button {
+  border: 1px solid var(--border); background: var(--cream);
+  color: var(--ink-mid); border-radius: 99px; padding: 7px 12px;
+  font-size: .8rem; font-weight: 700; cursor: pointer;
+}
+.price-range-options button.active {
+  background: var(--primary); border-color: var(--primary); color: #fff;
+}
 .clear-btn { margin-bottom: 0; align-self: flex-end; }
 
 .product-grid {
@@ -63,6 +104,7 @@
 .page-info { color: var(--ink-soft); font-size: .88rem; }
 
 @media (max-width: 640px) {
+  .catalog-summary { grid-template-columns: 1fr; }
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
 @media (max-width: 380px) {

@@ -92,3 +92,7 @@ Durante la primera quincena de mayo se avanzo en el modulo administrativo y en l
 ## Entrega quincenal mayo 2
 
 Durante la segunda quincena de mayo se realizaron mejoras de interfaz, validaciones y reportes simples para el marketplace. Se fortalecio el panel administrativo con informacion util para el control de ventas y pedidos, se mejoro la experiencia del cliente en el proceso de compra y se documentaron pruebas funcionales del sistema.
+
+## Entrega quincenal junio 1
+
+Durante la primera quincena de junio se fortalecio la interfaz del marketplace como prototipo funcional. Se ajusto la pagina de inicio, la tienda, el catalogo, el carrito y el checkout para mejorar la navegacion del usuario y facilitar las pruebas iniciales del flujo de compra.

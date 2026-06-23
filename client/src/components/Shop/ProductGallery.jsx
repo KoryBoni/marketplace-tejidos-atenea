@@ -1,11 +1,20 @@
 // client/src/components/Shop/ProductGallery.jsx
 import { useState, useEffect, useCallback } from 'react'
-import { Search, SlidersHorizontal, X } from 'lucide-react'
+import { PackageCheck, Search, SlidersHorizontal, X } from 'lucide-react'
 import { productService } from '../../services/productService'
 import categoryService from '../../services/categoryService'
 import ProductCard from './ProductCard'
+import ProductModal from './ProductModal'
 import LoadingSpinner from '../Common/LoadingSpinner'
 import './ProductGallery.css'
+
+const PRICE_RANGES = [
+  { label: 'Todos los precios', min: '', max: '' },
+  { label: 'Hasta $20.000', min: '', max: '20000' },
+  { label: '$20.000 - $50.000', min: '20000', max: '50000' },
+  { label: '$50.000 - $100.000', min: '50000', max: '100000' },
+  { label: 'Más de $100.000', min: '100000', max: '' },
+]
 
 export default function ProductGallery() {
   const [products, setProducts]     = useState([])
@@ -17,6 +26,7 @@ export default function ProductGallery() {
     category_id: '', search: '', precio_min: '', precio_max: ''
   })
   const [showFilters, setShowFilters] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState(null)
   const LIMIT = 12
 
   useEffect(() => {
@@ -45,13 +55,42 @@ export default function ProductGallery() {
     setPage(1)
   }
 
+  const applyPriceRange = (range) => {
+    setFilters(f => ({ ...f, precio_min: range.min, precio_max: range.max }))
+    setPage(1)
+  }
+
   const hasFilters = filters.category_id || filters.search || filters.precio_min || filters.precio_max
   const pages = Math.ceil(total / LIMIT)
+  const visibleProducts = products.length
+  const availableProducts = products.filter(p => Number(p.stock) > 0).length
 
   return (
     <div className="gallery-wrap">
+      <div className="catalog-summary">
+        <div>
+          <span>Productos visibles</span>
+          <strong>{visibleProducts}</strong>
+        </div>
+        <div>
+          <span>Disponibles</span>
+          <strong>{availableProducts}</strong>
+        </div>
+        <div>
+          <span>Categorías</span>
+          <strong>{categories.length}</strong>
+        </div>
+      </div>
+
       {/* Toolbar */}
       <div className="gallery-toolbar">
+        <div className="toolbar-title">
+          <PackageCheck size={18} />
+          <div>
+            <strong>Explorar catálogo</strong>
+            <span>Busca por nombre, categoría o rango de precio</span>
+          </div>
+        </div>
         <div className="search-wrap">
           <Search size={16} className="search-icon" />
           <input
@@ -94,22 +133,21 @@ export default function ProductGallery() {
       {/* Expanded filters */}
       {showFilters && (
         <div className="filter-panel anim-slide-up">
-          <div className="filter-row">
-            <div className="form-group">
-              <label>Precio mínimo</label>
-              <input
-                type="number" placeholder="0"
-                value={filters.precio_min}
-                onChange={e => applyFilter('precio_min', e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Precio máximo</label>
-              <input
-                type="number" placeholder="Sin límite"
-                value={filters.precio_max}
-                onChange={e => applyFilter('precio_max', e.target.value)}
-              />
+          <div className="price-range-panel">
+            <span>Rango de precio</span>
+            <div className="price-range-options">
+              {PRICE_RANGES.map(range => {
+                const active = filters.precio_min === range.min && filters.precio_max === range.max
+                return (
+                  <button
+                    key={range.label}
+                    className={active ? 'active' : ''}
+                    onClick={() => applyPriceRange(range)}
+                  >
+                    {range.label}
+                  </button>
+                )
+              })}
             </div>
             {hasFilters && (
               <button className="btn btn-ghost btn-sm clear-btn" onClick={clearFilters}>
@@ -134,7 +172,7 @@ export default function ProductGallery() {
         </div>
       ) : (
         <div className="product-grid">
-          {products.map(p => <ProductCard key={p.id} product={p} />)}
+          {products.map(p => <ProductCard key={p.id} product={p} onView={setSelectedProduct} />)}
         </div>
       )}
 
@@ -150,6 +188,7 @@ export default function ProductGallery() {
           </button>
         </div>
       )}
+      <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />
     </div>
   )
 }

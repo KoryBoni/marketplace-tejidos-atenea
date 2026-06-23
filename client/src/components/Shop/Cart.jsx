@@ -1,6 +1,6 @@
 // client/src/components/Shop/Cart.jsx
 import { useState } from 'react'
-import { X, Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react'
+import { ClipboardCheck, CreditCard, X, Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react'
 import { useCart } from '../../context/CartContext'
 import { useAuth } from '../../context/AuthContext'
 import { productService } from '../../services/productService'
@@ -22,7 +22,10 @@ export default function Cart({ isOpen, onClose }) {
           <div className="cart-header">
             <div className="cart-title">
               <ShoppingBag size={20} />
-              <h2>Carrito {totalItems > 0 && <span className="cart-count">({totalItems})</span>}</h2>
+              <div>
+                <h2>Carrito {totalItems > 0 && <span className="cart-count">({totalItems})</span>}</h2>
+                <p>Revisa cantidades antes de confirmar el pedido</p>
+              </div>
             </div>
             <button className="btn-icon" onClick={onClose}><X size={20} /></button>
           </div>
@@ -88,6 +91,10 @@ export default function Cart({ isOpen, onClose }) {
 
           {items.length > 0 && (
             <div className="cart-footer">
+              <div className="cart-checklist">
+                <span><ClipboardCheck size={14} /> Productos verificados</span>
+                <span><CreditCard size={14} /> Pago en checkout</span>
+              </div>
               <div className="cart-total">
                 <span>Total</span>
                 <span className="cart-total-amount">${total.toLocaleString('es-CO')}</span>

@@ -1,11 +1,25 @@
 /* client/src/pages/ShopPage.css */
 .shop-page {}
 .shop-header {
-  background: linear-gradient(160deg, var(--cream-dark) 0%, var(--primary-lt) 100%);
-  padding: 48px 0 40px;
+  background: linear-gradient(160deg, var(--cream-dark) 0%, var(--sage-lt) 100%);
+  padding: 48px 0 42px;
   border-bottom: 1px solid var(--border);
   text-align: center;
 }
+.shop-kicker {
+  display: inline-block; color: var(--primary); font-size: .78rem;
+  text-transform: uppercase; letter-spacing: .08em; font-weight: 700;
+  margin-bottom: 8px;
+}
 .shop-header h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 10px; }
-.shop-header p   { color: var(--ink-mid); font-size: 1rem; }
+.shop-header p   { color: var(--ink-mid); font-size: 1rem; max-width: 660px; margin: 0 auto; }
+.shop-flow {
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: 8px; margin-top: 22px;
+}
+.shop-flow span {
+  background: rgba(255,255,255,.72); border: 1px solid var(--border);
+  border-radius: 99px; padding: 7px 13px; color: var(--ink-mid);
+  font-size: .82rem; font-weight: 700;
+}
 .shop-body { padding-top: 36px; padding-bottom: 60px; }
