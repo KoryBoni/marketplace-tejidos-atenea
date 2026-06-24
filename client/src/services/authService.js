@@ -16,7 +16,11 @@ const authService = {
   },
 
   logout: async () => {
-    try { await api.post('/auth/logout'); } catch (_) {}
+    try {
+      await api.post('/auth/logout');
+    } catch {
+      // El cierre local debe continuar aunque la sesion del servidor ya haya expirado.
+    }
     localStorage.removeItem(KEY);
   },
 
@@ -24,7 +28,7 @@ const authService = {
     try {
       const { data } = await api.get('/auth/me');
       return data.user;
-    } catch (_) { return null; }
+    } catch { return null; }
   },
 
   getLocal: () => {

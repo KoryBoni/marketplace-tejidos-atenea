@@ -15,7 +15,10 @@ export default function CategoryManager() {
   const load = async () => {
     setLoading(true)
     try { const d = await categoryService.getAll(); setCats(d.categories || d) }
-    catch {} finally { setLoading(false) }
+    catch (error) {
+      console.error('Error al cargar categorias:', error)
+      setCats([])
+    } finally { setLoading(false) }
   }
 
   useEffect(() => { load() }, [])

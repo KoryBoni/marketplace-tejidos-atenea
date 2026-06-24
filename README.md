@@ -96,3 +96,15 @@ Durante la segunda quincena de mayo se realizaron mejoras de interfaz, validacio
 ## Entrega quincenal junio 1
 
 Durante la primera quincena de junio se fortalecio la interfaz del marketplace como prototipo funcional. Se ajusto la pagina de inicio, la tienda, el catalogo, el carrito y el checkout para mejorar la navegacion del usuario y facilitar las pruebas iniciales del flujo de compra.
+
+## Entrega quincenal junio 2
+
+Durante la segunda quincena de junio se dio por terminado el desarrollo de interfaz como prototipo funcional y se avanzo en la etapa de pruebas y correcciones del sistema. Se revisaron los modulos principales del frontend, se corrigieron detalles de validacion y calidad de codigo, y se verifico que la aplicacion compile correctamente.
+
+Validaciones realizadas:
+
+- `npm run lint` en el frontend sin errores.
+- `npm run build` en el frontend sin errores.
+- `node --check server.js` en el backend sin errores de sintaxis.
+
+Estado de la entrega: interfaz terminada como prototipo funcional y avance de pruebas/correcciones para mantener el sistema funcional sin errores visibles.

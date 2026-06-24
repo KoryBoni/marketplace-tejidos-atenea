@@ -37,8 +37,20 @@ export default function AdminDashboard() {
           ventas:     totalVentas,
         })
         setRecentOrders(orders.slice(0, 5))
-      } catch {}
-      finally { setLoading(false) }
+      } catch (error) {
+        console.error('Error al cargar dashboard:', error)
+        setStats({
+          productos: 0,
+          pedidos: 0,
+          pendientes: 0,
+          entregados: 0,
+          bajoStock: 0,
+          agotados: 0,
+          activos: 0,
+          ventas: 0,
+        })
+        setRecentOrders([])
+      } finally { setLoading(false) }
     }
     load()
   }, [])

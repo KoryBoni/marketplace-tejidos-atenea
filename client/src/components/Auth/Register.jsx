@@ -1,5 +1,5 @@
 // client/src/components/Auth/Register.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import logo from '../../assets/favicon_nobg.png';
@@ -43,9 +43,7 @@ const Register = () => {
       newErrors.nombre = 'El nombre debe tener mínimo 2 caracteres';
     }
 
-    if (!formData.apellido) {
-      newErrors.apellido = 'Apellido es requerido';
-    } else if (formData.apellido.length < 2) {
+    if (formData.apellido && formData.apellido.length < 2) {
       newErrors.apellido = 'El apellido debe tener mínimo 2 caracteres';
     }
 
