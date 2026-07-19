@@ -39,24 +39,6 @@ Se realizaron pruebas sobre el funcionamiento general del marketplace Tejidos At
 | `npm run build` | Verificar compilacion del frontend |
 | `node --check server.js` | Revisar sintaxis del backend |
 
-### Evidencias recomendadas
-
-- Terminal con `npm run lint`.
-- Terminal con `npm run build`.
-- Terminal con `node --check server.js`.
-- Tienda con productos cargados.
-- Mensaje de error del catalogo cuando el backend no esta activo.
-- Producto abierto en vista ampliada.
-- Producto guardado en favoritos.
-- Carrito con producto agregado.
-- Checkout mostrando validacion.
-- Panel administrativo.
-
-### Bitacora
-
-Se realizaron pruebas y correcciones del sistema funcional del marketplace Tejidos Atenea. Se reviso el flujo de compra, catalogo, filtros, favoritos, carrito, checkout y panel administrativo. Tambien se ajustaron validaciones y mensajes de error para mejorar el comportamiento del sistema durante las pruebas.
-
 ### Competencias aplicadas
 
 Pruebas de software, validacion funcional, correccion de errores, revision de interfaz, control de calidad del codigo y documentacion tecnica basica.
-
