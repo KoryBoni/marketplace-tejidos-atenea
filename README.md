@@ -108,3 +108,17 @@ Validaciones realizadas:
 - `node --check server.js` en el backend sin errores de sintaxis.
 
 Estado de la entrega: interfaz terminada como prototipo funcional y avance de pruebas/correcciones para mantener el sistema funcional sin errores visibles.
+
+## Entrega quincenal julio 1
+
+Durante la primera quincena de julio se avanzo en la etapa de pruebas y correcciones del sistema funcional. Se revisaron los modulos principales del marketplace, incluyendo inicio, tienda, filtros, favoritos, carrito, checkout, historial de pedidos y panel administrativo.
+
+Tambien se inicio la organizacion de la documentacion del sistema mediante el registro de casos de prueba, evidencias sugeridas y verificaciones tecnicas.
+
+Validaciones realizadas:
+
+- `npm run lint` en el frontend sin errores.
+- `node --check server.js` en el backend sin errores de sintaxis.
+- `npm run build` pendiente de ejecutar desde VS Code local para captura de evidencia.
+
+Estado de la entrega: avance de pruebas/correcciones y comienzo de documentacion del sistema.
