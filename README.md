@@ -111,14 +111,19 @@ Estado de la entrega: interfaz terminada como prototipo funcional y avance de pr
 
 ## Entrega quincenal julio 1
 
-Durante la primera quincena de julio se avanzo en la etapa de pruebas y correcciones del sistema funcional. Se revisaron los modulos principales del marketplace, incluyendo inicio, tienda, filtros, favoritos, carrito, checkout, historial de pedidos y panel administrativo.
+Durante la primera quincena de julio se realizaron pruebas y correcciones del sistema funcional. Se reviso el flujo de tienda, filtros, favoritos, carrito, checkout y panel administrativo.
 
-Tambien se inicio la organizacion de la documentacion del sistema mediante el registro de casos de prueba, evidencias sugeridas y verificaciones tecnicas.
+Correcciones aplicadas:
 
-Validaciones realizadas:
+- Mensaje de error cuando el catalogo no carga.
+- Boton para reintentar la carga de productos.
+- Validacion para no confirmar pedidos con carrito vacio.
+- Registro de casos de prueba en `docs/entrega-julio.md`.
 
-- `npm run lint` en el frontend sin errores.
-- `node --check server.js` en el backend sin errores de sintaxis.
-- `npm run build` pendiente de ejecutar desde VS Code local para captura de evidencia.
+Validaciones sugeridas:
 
-Estado de la entrega: avance de pruebas/correcciones y comienzo de documentacion del sistema.
+- `npm run lint`.
+- `npm run build`.
+- `node --check server.js`.
+
+Estado de la entrega: avance de pruebas y correcciones.

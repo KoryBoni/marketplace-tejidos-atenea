@@ -46,6 +46,11 @@ export default function Checkout({ isOpen, onClose, onSuccess }) {
   }
 
   const handleOrder = async () => {
+    if (items.length === 0) {
+      setError('Agrega al menos un producto antes de confirmar el pedido.')
+      return
+    }
+
     const validationError = validateCliente()
     if (validationError) {
       setError(validationError)
@@ -103,12 +108,16 @@ export default function Checkout({ isOpen, onClose, onSuccess }) {
           {/* Resumen */}
           <div className="checkout-summary">
             <h4>Resumen del pedido</h4>
-            {items.map(i => (
-              <div key={i.product_id} className="checkout-item">
-                <span>{i.nombre} × {i.cantidad}</span>
-                <span>${(i.precio * i.cantidad).toLocaleString('es-CO')}</span>
-              </div>
-            ))}
+            {items.length === 0 ? (
+              <p className="checkout-empty">No hay productos en el carrito.</p>
+            ) : (
+              items.map(i => (
+                <div key={i.product_id} className="checkout-item">
+                  <span>{i.nombre} × {i.cantidad}</span>
+                  <span>${(i.precio * i.cantidad).toLocaleString('es-CO')}</span>
+                </div>
+              ))
+            )}
             <div className="checkout-total">
               <strong>Total</strong>
               <strong>${total.toLocaleString('es-CO')}</strong>

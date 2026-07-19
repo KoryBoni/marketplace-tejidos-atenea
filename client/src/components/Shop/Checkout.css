@@ -25,6 +25,11 @@
   font-size: .88rem; color: var(--ink-mid);
   padding: 4px 0;
 }
+.checkout-empty {
+  color: var(--ink-soft);
+  font-size: .88rem;
+  padding: 4px 0;
+}
 .checkout-total {
   display: flex; justify-content: space-between;
   margin-top: 12px; padding-top: 12px;

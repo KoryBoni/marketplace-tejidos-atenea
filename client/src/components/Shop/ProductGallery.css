@@ -91,6 +91,16 @@
 }
 .clear-btn { margin-bottom: 0; align-self: flex-end; }
 
+.catalog-error {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: #fff4f0; border: 1px solid #f0c7bb;
+  border-radius: var(--r-md); color: var(--ink-mid);
+  padding: 18px; margin-bottom: 20px;
+}
+.catalog-error svg { color: var(--danger); flex-shrink: 0; }
+.catalog-error strong { display: block; color: var(--ink); margin-bottom: 5px; }
+.catalog-error p { color: var(--ink-soft); margin-bottom: 12px; line-height: 1.5; }
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

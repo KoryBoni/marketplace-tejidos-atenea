@@ -1,6 +1,6 @@
 // client/src/components/Shop/ProductGallery.jsx
 import { useState, useEffect, useCallback } from 'react'
-import { PackageCheck, Search, SlidersHorizontal, X } from 'lucide-react'
+import { AlertCircle, PackageCheck, Search, SlidersHorizontal, X } from 'lucide-react'
 import { productService } from '../../services/productService'
 import categoryService from '../../services/categoryService'
 import ProductCard from './ProductCard'
@@ -27,19 +27,27 @@ export default function ProductGallery() {
   })
   const [showFilters, setShowFilters] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
+  const [loadError, setLoadError] = useState('')
   const LIMIT = 12
 
   useEffect(() => {
-    categoryService.getAll().then(d => setCategories(d.categories || d)).catch(() => {})
+    categoryService.getAll()
+      .then(d => setCategories(d.categories || d))
+      .catch(() => setCategories([]))
   }, [])
 
   const fetchProducts = useCallback(async () => {
     setLoading(true)
+    setLoadError('')
     try {
       const data = await productService.getAll({ ...filters, page, limit: LIMIT })
       setProducts(data.products || data)
       setTotal(data.pagination?.total || (data.products || data).length)
-    } catch { setProducts([]) }
+    } catch {
+      setProducts([])
+      setTotal(0)
+      setLoadError('No se pudo cargar el catalogo. Revisa que el backend este encendido e intentalo de nuevo.')
+    }
     finally { setLoading(false) }
   }, [filters, page])
 
@@ -161,6 +169,17 @@ export default function ProductGallery() {
       {/* Grid */}
       {loading ? (
         <div className="loading-state"><LoadingSpinner size="lg" /></div>
+      ) : loadError ? (
+        <div className="catalog-error">
+          <AlertCircle size={28} />
+          <div>
+            <strong>Catalogo no disponible</strong>
+            <p>{loadError}</p>
+            <button className="btn btn-secondary btn-sm" onClick={fetchProducts}>
+              Reintentar
+            </button>
+          </div>
+        </div>
       ) : products.length === 0 ? (
         <div className="empty-state">
           <p>🧶 No encontramos productos con esos filtros.</p>

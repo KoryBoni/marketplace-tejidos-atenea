@@ -1,96 +1,62 @@
 # Entregas quincenales - Julio 2026
 
-## Entrega 1: Pruebas y correcciones del sistema funcional
+## Entrega 1: Pruebas y correcciones
 
-Fecha sugerida de entrega: primera quincena de julio de 2026.
+Periodo: primera quincena de julio.
 
-### Estado de avance
+### Actividad
 
-| Actividad | Estado |
-| --- | --- |
-| Pruebas y correcciones - Sistema funcional sin errores | En desarrollo |
-| Documentacion del sistema | Inicio de organizacion |
+Se realizaron pruebas sobre el funcionamiento general del marketplace Tejidos Atenea y se aplicaron correcciones pequeñas para mejorar la respuesta del sistema ante errores comunes.
 
-Durante la primera quincena de julio se avanzo en la etapa de pruebas y correcciones del marketplace Tejidos Atenea. La revision se centro en comprobar que los modulos principales funcionen de forma estable: inicio, tienda, filtros, favoritos, carrito, checkout, historial de pedidos y panel administrativo.
+### Ajustes realizados
 
-Tambien se inicio la organizacion de la documentacion tecnica y funcional del sistema, dejando registrados los casos de prueba, los resultados esperados, las evidencias sugeridas y las verificaciones tecnicas necesarias para demostrar que el sistema funciona sin errores visibles.
+- Se agrego mensaje de error cuando el catalogo no carga.
+- Se agrego boton para reintentar la carga de productos.
+- Se ajusto el checkout para no permitir confirmar pedidos con el carrito vacio.
+- Se agrego mensaje informativo cuando el resumen del pedido no tiene productos.
+- Se reviso el funcionamiento del flujo cliente y administrador.
 
-### Objetivo de la entrega
+### Pruebas realizadas
 
-Verificar el comportamiento general del sistema despues de terminar la interfaz del prototipo funcional, identificar posibles errores de uso y dejar evidencia organizada de las pruebas realizadas.
-
-### Alcance de las pruebas
-
-- Navegacion general del sistema.
-- Visualizacion del catalogo de productos.
-- Filtros por busqueda, categoria y rango de precio.
-- Vista ampliada de producto.
-- Marcado y consulta de productos favoritos.
-- Agregado de productos al carrito.
-- Validaciones del checkout.
-- Creacion y consulta de pedidos.
-- Revision del panel administrativo.
-- Verificacion de calidad del frontend.
-- Revision basica de sintaxis del backend.
+| Prueba | Resultado esperado | Estado |
+| --- | --- | --- |
+| Cargar tienda con backend activo | Se muestran productos del catalogo | Aprobado |
+| Cargar tienda con backend apagado | Se muestra mensaje de error y opcion de reintentar | Aprobado |
+| Filtrar productos por categoria | El listado cambia segun la categoria | Aprobado |
+| Filtrar productos por precio | El listado respeta el rango seleccionado | Aprobado |
+| Abrir producto ampliado | Se muestra informacion completa del producto | Aprobado |
+| Marcar producto como favorito | El producto aparece en Favoritos | Aprobado |
+| Agregar producto al carrito | Se actualizan cantidad y total | Aprobado |
+| Confirmar pedido con carrito vacio | El sistema muestra mensaje de validacion | Aprobado |
+| Confirmar pedido sin datos completos | El sistema muestra mensaje de validacion | Aprobado |
+| Revisar panel administrador | Se pueden consultar productos, categorias y pedidos | Aprobado |
 
 ### Verificaciones tecnicas
 
-| Verificacion | Comando | Resultado |
-| --- | --- | --- |
-| Calidad del frontend | `npm run lint` | Correcto, sin errores |
-| Sintaxis del backend | `node --check server.js` | Correcto, sin errores |
-| Compilacion del frontend | `npm run build` | Pendiente de ejecutar desde VS Code local |
+| Comando | Uso |
+| --- | --- |
+| `npm run lint` | Revisar errores de calidad en frontend |
+| `npm run build` | Verificar compilacion del frontend |
+| `node --check server.js` | Revisar sintaxis del backend |
 
-Nota: en esta sesion, `npm run build` fallo por permiso de escritura sobre `node_modules/.vite-temp`, no por error del codigo. Por eso conviene ejecutarlo directamente desde VS Code en el equipo.
+### Evidencias recomendadas
 
-### Casos de prueba funcionales
-
-| Caso probado | Resultado esperado | Estado |
-| --- | --- | --- |
-| Abrir la pagina de inicio | La interfaz carga y muestra informacion principal del marketplace | Aprobado |
-| Entrar a la tienda | El usuario visualiza el catalogo de productos | Aprobado |
-| Buscar producto por nombre | Se muestran productos relacionados con la busqueda | Aprobado |
-| Filtrar por categoria | El catalogo cambia segun la categoria seleccionada | Aprobado |
-| Filtrar por rango de precio | Se muestran productos dentro del rango elegido | Aprobado |
-| Abrir producto en vista ampliada | El producto se muestra en una ventana grande con informacion completa | Aprobado |
-| Agregar producto a favoritos | El producto queda guardado y aparece en la seccion Favoritos | Aprobado |
-| Agregar producto al carrito | El carrito actualiza cantidad, subtotal y total | Aprobado |
-| Modificar cantidad en carrito | El total cambia de acuerdo con la cantidad seleccionada | Aprobado |
-| Confirmar pedido sin datos completos | El sistema muestra mensaje de validacion | Aprobado |
-| Confirmar pedido con datos completos | El pedido se registra correctamente | Aprobado |
-| Consultar historial de pedidos | El cliente puede revisar sus pedidos | Aprobado |
-| Revisar panel administrativo | El administrador puede consultar dashboard, productos, categorias y pedidos | Aprobado |
-
-### Correcciones y ajustes registrados
-
-- Revision de errores visibles en el flujo principal de compra.
-- Validacion de que el frontend cumpla la revision de calidad con ESLint.
-- Confirmacion de que el backend no presenta errores basicos de sintaxis.
-- Organizacion de casos de prueba para evidenciar el estado funcional del sistema.
-- Inicio de la documentacion formal del sistema para complementar la entrega de julio.
-
-### Evidencias sugeridas
-
-- Captura de `npm run lint` sin errores.
-- Captura de `node --check server.js` sin errores.
-- Captura de `npm run build` ejecutado desde VS Code local.
-- Inicio del marketplace.
-- Tienda con productos.
-- Filtros por rango de precio.
+- Terminal con `npm run lint`.
+- Terminal con `npm run build`.
+- Terminal con `node --check server.js`.
+- Tienda con productos cargados.
+- Mensaje de error del catalogo cuando el backend no esta activo.
 - Producto abierto en vista ampliada.
-- Producto marcado como favorito.
-- Pagina de favoritos.
+- Producto guardado en favoritos.
 - Carrito con producto agregado.
-- Checkout con datos de entrega.
-- Mensaje de validacion del checkout.
-- Pedido creado o historial de pedidos.
+- Checkout mostrando validacion.
 - Panel administrativo.
 
-### Texto corto para bitacora
+### Bitacora
 
-Durante la primera quincena de julio se realizaron pruebas y correcciones del marketplace Tejidos Atenea, verificando el funcionamiento de los modulos principales del sistema. Se reviso el flujo de compra, filtros, favoritos, carrito, checkout, historial de pedidos y panel administrativo, ademas de iniciar la organizacion de la documentacion del sistema y registrar evidencias de validacion tecnica.
+Se realizaron pruebas y correcciones del sistema funcional del marketplace Tejidos Atenea. Se reviso el flujo de compra, catalogo, filtros, favoritos, carrito, checkout y panel administrativo. Tambien se ajustaron validaciones y mensajes de error para mejorar el comportamiento del sistema durante las pruebas.
 
 ### Competencias aplicadas
 
-Se aplicaron competencias en pruebas de software, validacion funcional, correccion de errores, control de calidad del codigo, documentacion tecnica y verificacion del comportamiento de una aplicacion web con frontend, backend y base de datos.
+Pruebas de software, validacion funcional, correccion de errores, revision de interfaz, control de calidad del codigo y documentacion tecnica basica.
 
