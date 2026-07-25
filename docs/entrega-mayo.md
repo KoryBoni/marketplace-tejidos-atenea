@@ -2,25 +2,9 @@
 
 ## Entrega 1: Panel administrativo e interfaz funcional
 
-Fecha sugerida de entrega: 18 o 19 de mayo de 2026.
-
 Durante la primera quincena de mayo se avanzo en el modulo administrativo y en la interfaz funcional del marketplace Tejidos Atenea. Se implemento un panel de administracion para productos, categorias y pedidos, ademas de una vista de dashboard con indicadores basicos. Tambien se ajusto el flujo de compra para registrar datos del cliente y metodo de pago, permitiendo al administrador consultar y gestionar los pedidos realizados.
 
-### Evidencias sugeridas
-
-- Pantalla principal del marketplace.
-- Catalogo de productos.
-- Carrito de compras.
-- Formulario de checkout con datos de entrega.
-- Historial de pedidos del cliente.
-- Panel admin con dashboard.
-- Gestion de productos.
-- Gestion de categorias.
-- Gestion de pedidos.
-
 ## Entrega 2: Mejoras de interfaz, reportes y validacion funcional
-
-Fecha sugerida de entrega: 30 de mayo de 2026.
 
 Durante la segunda quincena de mayo se realizaron mejoras de interfaz, validaciones y reportes simples para el marketplace. Se fortalecio el panel administrativo con informacion util para el control de ventas y pedidos, se mejoro la experiencia del cliente en el proceso de compra y se documentaron pruebas funcionales del sistema.
 

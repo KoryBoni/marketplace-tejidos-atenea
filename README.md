@@ -120,7 +120,7 @@ Correcciones aplicadas:
 - Validacion para no confirmar pedidos con carrito vacio.
 - Registro de casos de prueba en `docs/entrega-julio.md`.
 
-Validaciones sugeridas:
+Validaciones realizadas:
 
 - `npm run lint`.
 - `npm run build`.
