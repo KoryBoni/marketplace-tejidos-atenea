@@ -6,11 +6,12 @@ const { verifyAdmin } = require('../middleware/auth');
 const upload = require('../middleware/upload');
 
 // Públicas
-router.get('/',    ctrl.getAll);
-router.get('/:id', ctrl.getById);
+router.get('/', ctrl.getAll);
 
 // Admin - endpoint exclusivo para ver TODOS los productos (activos e inactivos)
 router.get('/admin/all', verifyAdmin, ctrl.getAllAdmin);
+
+router.get('/:id', ctrl.getById);
 
 // Solo admin — upload.single('imagen') procesa el archivo antes del controlador
 router.post('/',    verifyAdmin, upload.single('imagen'), ctrl.create);

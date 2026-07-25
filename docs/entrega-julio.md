@@ -42,3 +42,33 @@ Se realizaron pruebas sobre el funcionamiento general del marketplace Tejidos At
 ### Competencias aplicadas
 
 Pruebas de software, validacion funcional, correccion de errores, revision de interfaz, control de calidad del codigo y documentacion tecnica basica.
+
+---
+
+## Entrega 2: Documentacion del sistema
+
+Periodo: segunda quincena de julio.
+
+### Actividad
+
+Se inicio la documentacion del sistema con la elaboracion del manual tecnico y el manual de usuario.
+
+### Ajustes realizados
+
+- Se creo `docs/manual-tecnico.md`.
+- Se creo `docs/manual-usuario.md`.
+- Se documento instalacion, estructura del proyecto, rutas principales y roles del sistema.
+- Se documento el uso del sistema para cliente y administrador.
+- Se corrigio el orden de la ruta administrativa de productos para evitar conflicto con la ruta de detalle por id.
+
+### Archivos relacionados
+
+| Archivo | Contenido |
+| --- | --- |
+| `docs/manual-tecnico.md` | Instalacion, estructura, rutas y comandos de revision |
+| `docs/manual-usuario.md` | Uso del sistema por cliente y administrador |
+| `server/src/routes/products.js` | Correccion de orden de rutas de productos |
+
+### Competencias aplicadas
+
+Documentacion tecnica, descripcion de procesos de usuario, organizacion de informacion del proyecto, identificacion de modulos y revision de rutas del backend.
